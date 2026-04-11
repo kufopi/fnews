@@ -7,7 +7,7 @@ from modules.image_verifier import predict as img_predict,  confidence_tier as i
 from modules.video_verifier import predict as vid_predict,  confidence_tier as vid_tier
 
 st.set_page_config(
-    page_title="TOLU-VERIfy · Media Intelligence",
+    page_title="Detector Media Intelligence",
     page_icon="◈",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -443,8 +443,8 @@ video {
 
 st.markdown("""
 <div class="hero">
-  <div class="hero-eyebrow">Media Intelligence Platform · v2.0</div>
-  <h1 class="hero-title">VER<span>I</span>TY</h1>
+  <div class="hero-eyebrow">Final Year Project</div>
+  <h1 class="hero-title">Multimedia Fake News<span> Detection</h1>
   <p class="hero-sub">TEXT ANALYSIS · IMAGE FORENSICS · VIDEO DEEPFAKE DETECTION · ALL LOCAL</p>
   <div class="hero-line"></div>
 </div>
@@ -791,3 +791,110 @@ with tab_batch:
   <span class="batch-text">{truncated}</span>
   <span class="batch-pct">{r['confidence']:.0%}</span>
 </div>""", unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# CREDITS FOOTER  — fully inline styles (no class dependencies)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Shared inline style tokens
+_C_BG      = "#0D1117"
+_C_BORDER  = "#1E2A35"
+_C_BORDER2 = "#253040"
+_C_TEXT    = "#C8D8E8"
+_C_MUTED   = "#4A6070"
+_C_ACCENT  = "#00D4FF"
+_MONO      = "Space Mono, monospace"
+_SANS      = "Outfit, sans-serif"
+
+LIBS = [
+    ("Streamlit",     "Web UI framework"),
+    ("PyTorch",       "Deep learning runtime"),
+    ("Transformers",  "RoBERTa NLP model"),
+    ("OpenCV (cv2)",  "Image & video processing"),
+    ("NumPy",         "Numerical computation"),
+    ("SciPy",         "Signal & statistical analysis"),
+    ("Pillow (PIL)",  "Image I/O & conversion"),
+    ("MediaPipe",     "Face landmark detection"),
+    ("piexif",        "EXIF metadata parsing"),
+]
+
+def _chip(name: str, role: str) -> str:
+    return (
+        f'<div style="padding:.5rem .75rem;background:{_C_BG};border:1px solid {_C_BORDER2};'
+        f'border-radius:3px;display:flex;flex-direction:column;gap:.2rem;">'
+        f'<span style="font-family:{_MONO};font-size:.68rem;font-weight:700;color:{_C_TEXT};">{name}</span>'
+        f'<span style="font-family:{_MONO};font-size:.58rem;color:{_C_MUTED};">{role}</span>'
+        f'</div>'
+    )
+
+def _person(role_label: str, name: str, sub: str, mat: str) -> str:
+    return (
+        f'<div style="padding:1rem 1.25rem;background:{_C_BG};border:1px solid {_C_BORDER2};'
+        f'border-radius:4px;flex:1;">'
+        f'<div style="font-family:{_MONO};font-size:.58rem;letter-spacing:.18em;'
+        f'text-transform:uppercase;color:{_C_ACCENT};opacity:.7;margin-bottom:.4rem;">{role_label}</div>'
+        f'<div style="font-family:{_SANS};font-size:1rem;font-weight:700;color:{_C_TEXT};">{name}</div>'
+        f'<div style="font-family:{_SANS};font-size:1rem;font-weight:700;color:{_C_TEXT};">{mat}</div>'
+        f'<div style="font-family:{_MONO};font-size:.65rem;color:{_C_MUTED};margin-top:.2rem;">{sub}</div>'
+        f'</div>'
+    )
+def _personn(role_label: str, name: str, sub: str) -> str:
+    return (
+        f'<div style="padding:1rem 1.25rem;background:{_C_BG};border:1px solid {_C_BORDER2};'
+        f'border-radius:4px;flex:1;">'
+        f'<div style="font-family:{_MONO};font-size:.58rem;letter-spacing:.18em;'
+        f'text-transform:uppercase;color:{_C_ACCENT};opacity:.7;margin-bottom:.4rem;">{role_label}</div>'
+        f'<div style="font-family:{_SANS};font-size:1rem;font-weight:700;color:{_C_TEXT};">{name}</div>'
+        
+        f'<div style="font-family:{_MONO};font-size:.65rem;color:{_C_MUTED};margin-top:.2rem;">{sub}</div>'
+        f'</div>'
+    )
+
+# Build chips HTML (3 per row using flexbox rows)
+chip_rows = ""
+for i in range(0, len(LIBS), 3):
+    row_chips = "".join(_chip(n, r) for n, r in LIBS[i:i+3])
+    chip_rows += (
+        f'<div style="display:flex;gap:.5rem;margin-bottom:.5rem;">{row_chips}</div>'
+    )
+
+credits_html = f"""
+<div style="margin-top:4rem;border-top:1px solid {_C_BORDER};padding-top:2rem;padding-bottom:3rem;">
+
+  <!-- Section header -->
+  <div style="font-family:{_MONO};font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+              color:{_C_MUTED};margin-bottom:1.25rem;display:flex;align-items:center;gap:.6rem;">
+    Project Credits
+    <div style="flex:1;height:1px;background:{_C_BORDER};"></div>
+  </div>
+
+  <!-- People row -->
+  <div style="display:flex;gap:1rem;margin-bottom:1.5rem;">
+    {_person("Developer", "Idowu Christianah Toluwaleyi", "Department of Computer Science","Matric No: 22/CS/09")}
+    {_personn("Supervisor", "Dr. Kokobioko", "Lecturer I &nbsp;·&nbsp; Department of Computer Science")}
+  </div>
+
+  <!-- Divider -->
+  <div style="height:1px;background:{_C_BORDER};margin:1.25rem 0;"></div>
+
+  <!-- Libraries label -->
+  <div style="font-family:{_MONO};font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+              color:{_C_ACCENT};opacity:.7;margin-bottom:.85rem;">Technologies &amp; Libraries</div>
+
+  <!-- Chip grid -->
+  {chip_rows}
+
+  <!-- Divider -->
+  <div style="height:1px;background:{_C_BORDER};margin:1.5rem 0 1rem;"></div>
+
+  <!-- Footer line -->
+  <div style="font-family:{_MONO};font-size:.6rem;color:{_C_MUTED};letter-spacing:.1em;
+              text-align:center;opacity:.45;">
+    Idowu Christianah Toluwaleyi &nbsp;·&nbsp; Multimedia Fake News Detection &nbsp;·&nbsp; Computer Science Department
+  </div>
+
+</div>
+"""
+
+st.markdown(credits_html, unsafe_allow_html=True)
